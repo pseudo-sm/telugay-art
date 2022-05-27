@@ -1,0 +1,265 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+html {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+  background-color: #ccc;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.slide-container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: 436px;
+  height: 608px;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 1s cubic-bezier(0.45, 0, 0.55, 1);
+  perspective-origin: 50% 50%;
+  perspective: 800px;
+  overflow: hidden;
+}
+.slide .flip-card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  transition: transform 1s cubic-bezier(0.45, 0, 0.55, 1);
+}
+.slide .flip-card:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.slide .static-img {
+  position: relative;
+  display: block;
+  z-index: 9;
+  text-align: center;
+  width: 100%;
+  top: 0%;
+  transition: transform 1s cubic-bezier(0.45, 0, 0.55, 1);
+}
+.slide[data-position="before"] {
+  perspective-origin: 100% 50%;
+  transform: translateX(-600px);
+}
+.slide[data-position="before"] .flip-card {
+  transform: translateZ(-400px) rotateY(45deg);
+  transform-origin: 100% 0%;
+}
+.slide[data-position="before"] .static-img {
+  transform: translateX(600px);
+}
+.slide[data-position="after"] {
+  perspective-origin: 0% 50%;
+  transform: translateX(600px);
+}
+.slide[data-position="after"] .flip-card {
+  transform: translateZ(-400px) rotateY(-45deg);
+  transform-origin: 0% 0%;
+}
+.slide[data-position="after"] .static-img {
+  transform: translateX(-600px);
+}
+.slide.on-stage {
+  transform: translateX(0);
+  z-index: 5;
+  transition-delay: 0.1s;
+}
+.slide.on-stage .flip-card {
+  transform: rotateY(0);
+  transition-delay: 0.1s;
+}
+.slide.on-stage .static-img {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.1s;
+}
+.slide.on-stage + .slide {
+  z-index: 4;
+}
+.slide.on-stage + .slide + .slide {
+  z-index: 3;
+}
+
+.pagination {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  z-index: 99;
+}
+.pagination button {
+  position: absolute;
+  display: block;
+  width: 60px;
+  height: 60px;
+  background-color: rgba(15, 73, 96, 0.8);
+  color: #89a0e4;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all 0.5s;
+  font-family: 'Crimson Text', serif;
+  font-size: 16px;
+}
+.pagination button:hover {
+  background-color: #666da3;
+  color: rgb(42, 14, 85);
+}
+.pagination button:active, .pagination button:focus {
+  outline: none;
+}
+.pagination button.btn-prev {
+  left: 50px;
+}
+.pagination button.btn-next {
+  right: 50px;
+}
+
+/**** draw the triangle ****/
+
+.box { overflow: hidden; } /* needed to round trinagle corner */
+
+/* draw top-left css triangle */
+.triangle {
+  position: absolute;
+  width: 0;
+	height: 0;
+	border-top: 55px solid #ea6c6c;
+	border-right: 55px solid transparent;
+}
+
+/* position 'new' label */
+.triangle > span { 
+  position: absolute; 
+  top: -45px;
+  left: 4px;
+  transform: rotate(-45deg);
+}
+
+/***** basic styling for the box *****/
+
+.box {  
+  position: relative;
+  width: 315px;
+  height: 160px;
+  
+  margin: 20px;
+  background: #f0f7fa;
+  border-radius: 10px;
+  
+  font-size: 18px;
+  font-family: 'Arial';
+ }
+
+.box-contents { width: 150px;
+  margin: 12px auto; 
+  text-align: center; }
+
+.course { 
+  color: #9cc7dd;
+  text-transform: uppercase;
+}
+
+.badge { 
+  color: #337394;
+  font-weight: bold;
+  margin-top: 3px;
+}
+
+.box-contents > img { 
+  width: 100px; 
+  transform: scale(1.1);
+  margin-top: 20px;
+}
+
+.triangle > span { 
+  font-size: 16px;
+  color: white; 
+}
+
+/* move badge up on hover */
+.box-contents > img:hover { margin-top: 10px; }
+
+.round-image {
+    border-radius: 50%;
+    max-width: 100%;
+    min-width: 100px;
+}
